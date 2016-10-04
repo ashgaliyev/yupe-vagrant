@@ -1,0 +1,16 @@
+---
+- hosts: vagrant
+  sudo: true
+  vars:
+  vars_files:
+    - defaults/variables.yml
+
+  roles:
+    - initial
+    - common
+    - { role: geerlingguy.mysql }
+    - { role: jdauphant.nginx }
+    - { role: itcraftsmanpl.php7 }
+    - { role: geerlingguy.composer }
+    - adminer
+    - yupe

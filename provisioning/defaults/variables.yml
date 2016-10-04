@@ -1,0 +1,42 @@
+hostname: yupe-vagrant
+
+mysql_root_password: root
+mysql_databases:
+  - name: yupe_db
+    encoding: utf8
+    collation: utf8_general_ci
+mysql_users:
+  - name: yupe
+    host: "%"
+    password: yupe
+    priv: "yupe_db.*:ALL"
+
+nginx_user: "www-data"
+
+nginx_events_params:
+ - worker_connections 512
+ - debug_connection 127.0.0.1
+ - use epoll
+ - multi_accept on
+
+nginx_sites:
+ yupe:
+     - listen 80
+     - server_name yupe-site
+     - root "/var/www/yupe-site/public/"
+     - index index.html index.htm index.php
+     - location ~ /\. { return 444; }
+     - location / { try_files $uri $uri /index.php?$args; }
+     - location ~ /protected/ { return 444; }
+     - location ~ ^/themes/(.*)/views/ { return 444; }
+     - location ~ \.php {
+                fastcgi_pass  unix:/var/run/php/php7.0-fpm.sock;
+                fastcgi_index index.php;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+                fastcgi_param PATH_INFO $fastcgi_script_name;
+        }
+
+php_use_managed_ini: true
+php_max_execution_time: "3600"
+php_memory_limit: "512M"

@@ -1,0 +1,6 @@
+---
+- name: prepare dir for Adminer
+  shell: mkdir /usr/share/adminer -p
+
+- name: download Adminer
+  get_url: dest=/usr/share/adminer/index.php mode=0644 url=https://www.adminer.org/static/download/4.2.5/adminer-4.2.5-mysql.php

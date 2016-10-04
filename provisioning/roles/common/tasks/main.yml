@@ -1,0 +1,19 @@
+- name: ensure system packages are installed
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - git-core
+    - curl
+    - wget
+    - htop
+    - mc
+    - libpq-dev
+    - build-essential
+    - python-software-properties
+    - python-mysqldb
+    - python-psycopg2
+    - unzip
+
+- name: remove apache2
+  apt: pkg=apache2 state=removed
+
+- include: ntp.yml
