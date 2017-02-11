@@ -37,6 +37,11 @@ nginx_sites:
                 fastcgi_param PATH_INFO $fastcgi_script_name;
         }
 
+php_packages:
+  - php7.0-mbstring
+  - php7.0-dom
+
+php_opcache_enable: 0
 php_use_managed_ini: true
 php_max_execution_time: "3600"
 php_memory_limit: "512M"

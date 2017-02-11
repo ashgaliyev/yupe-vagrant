@@ -44,7 +44,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     # the path on the host to the actual folder. The second argument is
     # the path on the guest to mount the folder. And the optional third
     # argument is a set of non-required options.
-    config.vm.synced_folder "./", "/var/www"
+    config.vm.synced_folder "./", "/var/www", owner: "vagrant", group: "www-data", mount_options: ["dmode=777,fmode=777"]
     # Provider-specific configuration so you can fine-tune various
     # backing providers for Vagrant. These expose provider-specific options.
     # Example for VirtualBox:
@@ -82,7 +82,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     $script = <<SCRIPT
         sudo apt-get install software-properties-common -y
         sudo apt-add-repository ppa:ansible/ansible -y
-        sudo apt-get update -y 
+        sudo apt-get update -y
         sudo apt-get install ansible -y
         ansible-galaxy install -r /vagrant/requirements.yml
 SCRIPT

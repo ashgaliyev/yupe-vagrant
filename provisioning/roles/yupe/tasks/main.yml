@@ -2,7 +2,7 @@
   shell: composer create-project yupe/yupe /var/www/yupe-site --no-dev --prefer-dist  creates=/var/www/yupe-site
 
 - name: run composer update
-  shell: chdir="/var/www/yupe-site/" composer update --prefer-dist -o
+  shell: chdir="/var/www/yupe-site/" composer update --prefer-dist -o -q
 
 - name: run build.s
   shell: chdir="/var/www/yupe-site/" bash /var/www/yupe-site/build.sh init
